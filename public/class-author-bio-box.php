@@ -274,7 +274,7 @@ class Author_Bio_Box {
 	 * @return void
 	 */
 	public function enqueue_styles() {
-		wp_register_style( self::get_plugin_slug() . '-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION, 'all' );
+		// wp_register_style( self::get_plugin_slug() . '-styles', plugins_url( 'assets/css/public.css', __FILE__ ), array(), self::VERSION, 'all' );
 	}
 
 	/**
@@ -341,8 +341,8 @@ class Author_Bio_Box {
 			$settings['text_color']
 		);
 
-		$html = '<div id="author-bio-box" style="' . $styles . '">';
-		$html .= '<h3><a style="color: ' . $settings['title_color'] . ';" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( __( 'All posts by', self::get_plugin_slug() ) . ' ' . get_the_author() ) .'" rel="author">' . get_the_author() . '</a></h3>';
+		$html = '<div id="author-bio-box">';
+		$html .= '<h3><a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( __( 'All posts by', self::get_plugin_slug() ) . ' ' . get_the_author() ) .'" rel="author">' . get_the_author() . '</a></h3>';
 		$html .= '<div class="bio-gravatar">' . get_avatar( get_the_author_meta('ID'), $gravatar ) . '</div>';
 
 		foreach ( $social as $key => $value ) {
