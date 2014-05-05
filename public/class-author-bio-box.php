@@ -342,16 +342,38 @@ class Author_Bio_Box {
 		);
 
 		$html = '<div id="author-bio-box">';
-		$html .= '<h3><a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( __( 'All posts by', self::get_plugin_slug() ) . ' ' . get_the_author() ) .'" rel="author">' . get_the_author() . '</a></h3>';
+		$html .= '<h3><a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( __( 'All posts by', self::get_plugin_slug() ) . ' ' . get_the_author() ) .'" rel="author">About ' . get_the_author() . '</a></h3>';
 		$html .= '<div class="bio-gravatar">' . get_avatar( get_the_author_meta('ID'), $gravatar ) . '</div>';
 
-		foreach ( $social as $key => $value ) {
-			if ( ! empty( $value ) ) {
-				$html .= '<a target="_blank" href="' . esc_url( $value ) . '" class="bio-icon bio-icon-' . $key . '"></a>';
-			}
-		}
+		// foreach ( $social as $key => $value ) {
+		// 	if ( ! empty( $value ) ) {
+		// 		$html .= '<a target="_blank" href="' . esc_url( $value ) . '" class="bio-icon bio-icon-' . $key . '"></a>';
+		// 	}
+		// }
 
 		$html .= '<p class="bio-description">' . apply_filters( 'authorbiobox_author_description', get_the_author_meta( 'description' ) ) . '</p>';
+
+		// buttons
+		$first_name = get_the_author_meta('first_name');
+
+		$html .= '<p>';
+		$html .= '<a class="btn btn-success" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" title="' . esc_attr( __( 'All posts by', 'authorbiobox' ) . ' ' . get_the_author() ) .'" rel="author">More Posts by '.$first_name.'</a>';
+
+		if(!empty($social['twitter'])) {
+		  $html .= '<a target="_blank" href="http://twitter.com/' . $social['twitter'] . '" class="btn btn-info"><i class="fa fa-twitter"></i> Follow on Twitter</a>';   
+		}
+
+		if(!empty($social['facebook'])) {
+			$html .= '<a target="_blank" href="' . esc_url( $social['facebook'] ) . '" class="btn btn-primary"><i class="fa fa-facebook"></i> Like on Facebook</a>';
+		}
+
+		if(!empty($social['website'])) {
+			$html .= '<a target="_blank" href="' . esc_url( $social['website'] ) . '" class="btn btn-warning">Invite '.$first_name.' to Your Event</a>';
+		}
+
+		$html .= '</p>';
+		// end buttons
+
 		$html .= '</div>';
 
 		return $html;
